@@ -1,8 +1,11 @@
 package ru.job4j.cars.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "price_history")
 public class PriceHistory {
