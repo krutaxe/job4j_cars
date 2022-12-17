@@ -16,7 +16,7 @@
   <name>job4j_cars</name>
 
   <properties>
-    <java.version>18</java.version>
+    <java.version>17</java.version>
   </properties>
 
   <dependencies>
@@ -78,40 +78,24 @@
     </dependency>
 
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
-        <version>3.6.2</version>
+        <version>4.15.0</version>
         <configuration>
-          <changeLogFile>${basedir}/db/master.xml</changeLogFile>
-          <url>${db.url}</url>
-          <driver>${db.driver}</driver>
-          <username>${db.username}</username>
-          <password>${db.password}</password>
-          <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+          <propertyFile>db/liquibase.properties</propertyFile>
         </configuration>
-        <executions>
-          <execution>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>clearCheckSums</goal>
-              <goal>update</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
-
-
     </plugins>
-  </build>
 
+  </build>
   <profiles>
     <profile>
       <id>test</id>
@@ -128,7 +112,7 @@
     <profile>
       <id>production</id>
       <properties>
-        <db.url>jdbc:postgresql://127.0.0.1:5432/dreamjob</db.url>
+        <db.url>jdbc:postgresql://127.0.0.1:5432/auto</db.url>
         <db.username>postgres</db.username>
         <db.password>postgres</db.password>
         <db.driver>org.postgresql.Driver</db.driver>
