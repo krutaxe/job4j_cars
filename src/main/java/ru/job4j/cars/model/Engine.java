@@ -6,20 +6,18 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-@Table(name = "auto_user")
+@Table(name = "engine")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Engine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
+    private String name;
 
-    private String login;
-
-    private String password;
-
-    @OneToOne(mappedBy = "user")
-    private Driver driver;
+    @OneToOne(mappedBy = "engine")
+    private Car car;
 }

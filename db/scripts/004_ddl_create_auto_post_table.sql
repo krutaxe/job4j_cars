@@ -2,5 +2,6 @@ CREATE TABLE IF NOT EXISTS auto_post (
 	id SERIAL PRIMARY KEY,
 	text text,
 	created date,
-	auto_user_id int references auto_user(id)
+	auto_user_id int references auto_user(id),
+	car_id int references car(id)
 );
