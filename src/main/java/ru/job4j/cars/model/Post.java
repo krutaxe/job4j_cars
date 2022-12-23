@@ -3,6 +3,7 @@ package ru.job4j.cars.model;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Post {
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date created;
+    private LocalDate created;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
@@ -31,4 +32,10 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private List<User> users;
+
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    private byte[] photo;
 }

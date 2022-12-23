@@ -29,4 +29,7 @@ public class Car {
                 joinColumns = @JoinColumn(name = "car_id"),
                 inverseJoinColumns = @JoinColumn(name = "driver_id"))
     private List<Driver> drivers = new ArrayList<>();
+
+    @OneToOne(mappedBy = "car")
+    private Post post;
 }
