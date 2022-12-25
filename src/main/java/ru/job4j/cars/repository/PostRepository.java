@@ -7,6 +7,7 @@ import ru.job4j.cars.model.Driver;
 import ru.job4j.cars.model.Post;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,8 @@ public class PostRepository {
     }
 
     public List<Post> showInDay() {
-       LocalDate now = LocalDate.now();
-       LocalDate before = LocalDate.now().minusDays(now.getDayOfMonth() - 1);
+       LocalDateTime now = LocalDateTime.now();
+       LocalDateTime before = LocalDateTime.now().minusDays(1);
        return crudRepository.query(
                "From Post where created between :fBefore and :fNow", Post.class,
                Map.of("fBefore", before, "fNow", now));
