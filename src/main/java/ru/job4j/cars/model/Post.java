@@ -1,6 +1,8 @@
 package ru.job4j.cars.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "auto_post")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +22,6 @@ public class Post {
 
     private String text;
 
-    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime created;
 
@@ -38,5 +41,5 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    private byte[] photo;
+    private byte[] photo = null;
 }
