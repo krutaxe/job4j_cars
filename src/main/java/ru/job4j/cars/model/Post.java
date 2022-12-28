@@ -41,5 +41,5 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    private byte[] photo = null;
+    private byte[] photo = new byte[]{};
 }

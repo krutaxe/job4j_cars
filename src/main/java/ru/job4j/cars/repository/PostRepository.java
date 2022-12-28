@@ -40,7 +40,7 @@ public class PostRepository {
     }
 
     public List<Post> showWithPhoto() {
-        return crudRepository.query("From Post where photo is not null", Post.class);
+        return crudRepository.query("From Post where length(photo) > 0", Post.class);
     }
 
     public List<Post> showByCarName(Car car) {
