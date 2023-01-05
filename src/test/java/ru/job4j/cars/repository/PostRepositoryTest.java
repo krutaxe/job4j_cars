@@ -1,20 +1,19 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Post;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import static org.assertj.core.api.Assertions.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 @AllArgsConstructor
 class PostRepositoryTest {
     private static final StandardServiceRegistry REGISTRY = new StandardServiceRegistryBuilder()
