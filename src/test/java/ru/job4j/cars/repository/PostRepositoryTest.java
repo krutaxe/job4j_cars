@@ -27,7 +27,7 @@ class PostRepositoryTest {
         try (Session session = SESSION_FACTORY.openSession()) {
             session.beginTransaction();
             session.createQuery("delete from Post").executeUpdate();
-            session.beginTransaction().commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
