@@ -1,11 +1,6 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Post;
@@ -17,11 +12,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class PostRepository {
     private final CrudRepository crudRepository;
-
-    private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-            .configure().build();
-    private final SessionFactory sf = new MetadataSources(registry)
-            .buildMetadata().buildSessionFactory();
 
     public List<Post> findAll() {
         return crudRepository.query("From Post", Post.class);
@@ -40,19 +30,11 @@ public class PostRepository {
     }
 
     public List<Post> showWithPhoto() {
-        return crudRepository.query("From Post where length(photo) > 0", Post.class);
+        return crudRepository.query("From Post where photo is not null", Post.class);
     }
 
     public List<Post> showByCarName(Car car) {
         return crudRepository.query("From Post p where p.car_id = :fId", Post.class,
                 Map.of("fId", car.getId()));
-    }
-
-    public void deleteAll() {
-        Session session = sf.openSession();
-        session.beginTransaction();
-        session.createQuery("delete from Post ").executeUpdate();
-        session.getTransaction().commit();
-        session.close();
     }
 }

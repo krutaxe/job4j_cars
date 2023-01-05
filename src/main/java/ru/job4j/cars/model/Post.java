@@ -1,13 +1,9 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,15 +11,17 @@ import java.util.List;
 @Table(name = "auto_post")
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     private String text;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime created;
+    private LocalDateTime created  = LocalDateTime.now();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
@@ -35,11 +33,12 @@ public class Post {
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
+
     private List<User> users;
 
-    @OneToOne
-    @JoinColumn(name = "car_id")
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
 
-    private byte[] photo = new byte[]{};
+    private byte[] photo;
 }
