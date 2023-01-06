@@ -1,12 +1,15 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Car;
 import ru.job4j.cars.model.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -15,6 +18,11 @@ public class PostRepository {
 
     public List<Post> findAll() {
         return crudRepository.query("From Post", Post.class);
+    }
+
+    public Optional<Post> findById(int id) {
+        return crudRepository.optional("from Post where id = :fId", Post.class,
+                Map.of("fId", id));
     }
 
     public void save(Post post) {

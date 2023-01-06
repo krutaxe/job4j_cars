@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Объявления продаж машин</title>
+    <title>Объявление</title>
 </head>
 <body>
 <div class="container">
@@ -28,31 +28,35 @@
         </div>
     </nav>
     <div class="row">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Название</th>
-                <th scope="col">Цена</th>
-                <th scope="col">Дата создания</th>
-                <th scope="col">Статус</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="post: ${posts}">
-                <td th:text="${post.id}"/>
-                <td>
-                    <a th:href="@{/post/{id}(id=${post.getId()})}"
-                       th:text="${post.name}"></a>
-                </td>
-                <td th:text="${post.price}"/>
-                <td th:text="${#temporals.format(post.created, 'dd-MM-yyy  HH:mm')}"/>
-                <td>
+        <div>
+            <div>
+                <b>Марка автомобиля</b>
+                <p th:text="${post.car.brand}"></p>
+            </div>
+
+            <div>
+                <b>Объем двигателя</b>
+                <p th:text="${post.car.engine.name}"></p>
+            </div>
+
+            <div>
+                <b>Описание</b>
+                <p th:text="${post.text}"></p>
+            </div>
+
+            <div>
+                <b>Цена</b>
+                <p th:text="${post.price}"></p>
+            </div>
+
+            <div>
+                <b>Статус</b>
+                <p>
                     <span th:if="${post.status}">Продано!</span>
                     <span th:if="${!post.status}">Продается</span>
-            </tr>
-            </tbody>
-        </table>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 </body>

@@ -4,41 +4,31 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-@Entity
-@Table(name = "auto_post")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+@Table(name = "auto_post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
+    private String name;
+
     private String text;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime created  = LocalDateTime.now();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "auto_post_id")
-    private List<PriceHistory> priceHistoryList;
+    private int price = 100;
 
-    @ManyToMany
-    @JoinTable(
-            name = "participates",
-            joinColumns = {@JoinColumn(name = "post_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
-
-    private List<User> users;
+    private boolean status = false;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @JoinColumn(name = "car_id")
     private Car car;
-
-    private byte[] photo;
 }

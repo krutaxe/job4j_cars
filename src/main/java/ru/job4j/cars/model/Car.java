@@ -2,34 +2,27 @@ package ru.job4j.cars.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "car")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
-    private String name;
+    @Column(name = "name")
+    private String brand;
 
-    @OneToOne
-    @JoinColumn(name = "engine_id", referencedColumnName = "id")
+    @ManyToOne()
+    @JoinColumn(name = "engine_id")
     private Engine engine;
-
-    @ManyToMany
-    @JoinTable(name = "history_owner",
-                joinColumns = @JoinColumn(name = "car_id"),
-                inverseJoinColumns = @JoinColumn(name = "driver_id"))
-    private List<Driver> drivers = new ArrayList<>();
-
-    @OneToMany(mappedBy = "car")
-    private List<Post> post;
 }
