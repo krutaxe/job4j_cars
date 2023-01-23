@@ -15,7 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Объявление</title>
+    <title>TODO LIST авторизация</title>
 </head>
 <body>
 <div class="container">
@@ -24,8 +24,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" th:href="@{/posts}">Все объявления</a>
                 <a class="nav-item nav-link" th:href="@{/formCreatePost}">Добавить объявление</a>
-                <a class="nav-item nav-link" th:href="@{/showInDay}">Объявления за последние сутки</a>
-                <a class="nav-item nav-link" th:href="@{/withPhoto}">Объявления с фото</a>
+                <a class="nav-item nav-link" th:href="@{/addUser}">Зарегистрироваться</a>
                 <a class="nav-item nav-link" th:if="${userSession.login == 'Гость'}" th:href="@{/loginPage}">
                     <span th:text="${userSession.login}"></span>
                     <span> | Войти</span>
@@ -38,64 +37,28 @@
         </div>
     </nav>
     <div class="row">
-        <div>
-
-            <div>
-                <b>Фото</b>
-                <p>
-                    <span th:if="${post.getPhoto() == null}">Фото отсутствует</span>
-                    <span th:if="${post.getPhoto() != null}">
-                        <img th:width="400" th:high="400" th:src="@{|/photoPost/${post.id}|}">
-                    </span>
-                </p>
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Новый пользователь.
             </div>
+            <div class="card-body">
+                <form th:action="@{/registration}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="0"/>
 
-            <br>
+                    <div class="form-group">
+                        <label for="login">Логин</label>
+                        <input type="text" class="form-control" name="login" id="login">
+                    </div>
 
-            <div>
-                <b>Марка автомобиля</b>
-                <p th:text="${post.car.brand}"></p>
-            </div>
+                    <div class="form-group">
+                        <label for="login">Пароль</label>
+                        <input type="text" class="form-control" name="password" id="password">
+                    </div>
 
-            <div>
-                <b>Объем двигателя</b>
-                <p th:text="${post.car.engine.name}"></p>
-            </div>
-
-            <div>
-                <b>Описание</b>
-                <p th:text="${post.text}"></p>
-            </div>
-
-            <div>
-                <b>Цена</b>
-                <p th:text="${post.price} + р."></p>
-            </div>
-
-            <div>
-                <b>Статус</b>
-                <p>
-                    <span th:if="${post.status}">Продано!</span>
-                    <span th:if="${!post.status}">Продается</span>
-                </p>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
             </div>
         </div>
-    </div>
-    <div class="card-body">
-
-        <form form th:action="@{/post/{id}(id=${post.getId()})}" method="post" enctype="multipart/form-data">
-            <span th:if="${userSession.login == post.getUser().getLogin()}">
-            <span th:if="${!post.status}">
-                <button type="submit" class="btn btn-primary">Продать</button>
-            </span>
-            </span>
-        </form>
-
-        <br>
-
-        <form th:action="@{/posts}" method="GET" enctype="multipart/form-data">
-            <button type="submit" class="btn btn-primary">Назад</button>
-        </form>
     </div>
 </div>
 </body>

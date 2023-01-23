@@ -38,11 +38,19 @@ public class PostRepository {
     }
 
     public List<Post> showWithPhoto() {
-        return crudRepository.query("From Post where photo is not null", Post.class);
+        return crudRepository.query("From Post where photo is not null",
+                Post.class);
     }
 
     public List<Post> showByCarName(Car car) {
         return crudRepository.query("From Post p where p.car_id = :fId", Post.class,
                 Map.of("fId", car.getId()));
+    }
+
+    public void sale(int id) {
+        crudRepository.run(session -> {
+            Post post = session.get(Post.class, id);
+            post.setStatus(true);
+        });
     }
 }

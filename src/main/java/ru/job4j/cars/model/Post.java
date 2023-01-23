@@ -31,4 +31,10 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+
+    @ManyToOne
+    @JoinColumn(name = "auto_user_id")
+    private User user;
+
+    private byte[] photo;
 }

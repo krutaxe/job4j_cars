@@ -23,6 +23,16 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" th:href="@{/posts}">Все объявления</a>
                 <a class="nav-item nav-link" th:href="@{/formCreatePost}">Добавить объявление</a>
+                <a class="nav-item nav-link" th:href="@{/showInDay}">Объявления за последние сутки</a>
+                <a class="nav-item nav-link" th:href="@{/withPhoto}">Объявления с фото</a>
+                <a class="nav-item nav-link" th:if="${userSession.login == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${userSession.login}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${userSession.login != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${userSession.login}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -70,6 +80,11 @@
 
                             </option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">Фото</label>
+                        <input type="file" class="form-control" name="file" id="file">
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Сохранить</button>

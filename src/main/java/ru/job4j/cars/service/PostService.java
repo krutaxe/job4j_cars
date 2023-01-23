@@ -25,4 +25,16 @@ public class PostService {
     public void save(Post post) {
         postRepository.save(post);
     }
+
+    public void sale(int id) {
+        postRepository.sale(id);
+    }
+
+    public List<Post> showInDay() {
+        return postRepository.showInDay();
+    }
+
+    public List<Post> showWithPhoto() {
+        return postRepository.showWithPhoto();
+    }
 }

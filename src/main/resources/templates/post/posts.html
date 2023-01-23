@@ -24,6 +24,16 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" th:href="@{/posts}">Все объявления</a>
                 <a class="nav-item nav-link" th:href="@{/formCreatePost}">Добавить объявление</a>
+                <a class="nav-item nav-link" th:href="@{/showInDay}">Объявления за последние сутки</a>
+                <a class="nav-item nav-link" th:href="@{/withPhoto}">Объявления с фото</a>
+                <a class="nav-item nav-link" th:if="${userSession.login == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${userSession.login}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${userSession.login != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${userSession.login}"></span>
+                    <span> | Выйти</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -31,25 +41,32 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Название</th>
                 <th scope="col">Цена</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Статус</th>
+                <th scope="col">Фото</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="post: ${posts}">
-                <td th:text="${post.id}"/>
                 <td>
-                    <a th:href="@{/post/{id}(id=${post.getId()})}"
-                       th:text="${post.name}"></a>
+                    <a th:href="@{/post/{id}(id=${post.getId()})}" th:text="${post.name}"></a>
                 </td>
-                <td th:text="${post.price}"/>
+
+                <td th:text="${post.price} + р."/>
                 <td th:text="${#temporals.format(post.created, 'dd-MM-yyy  HH:mm')}"/>
                 <td>
                     <span th:if="${post.status}">Продано!</span>
                     <span th:if="${!post.status}">Продается</span>
+
+                <td>
+                    <span th:if="${post.getPhoto() == null}">Фото отсутствует</span>
+                    <span th:if="${post.getPhoto() != null}">
+                        <img th:width="100" th:high="100" th:src="@{|/photoPost/${post.id}|}">
+                    </span>
+                </td>
+
             </tr>
             </tbody>
         </table>
